@@ -17,6 +17,11 @@ module.exports = {
         try {
             await validacaoSchema.validate(req.body, { abortEarly:false})
             
+            const clienteExistente = await knex('cliente').where('emailCliente', emailCliente).first()
+            if (clienteExistente) {
+                return res.status(400).json({ error: "E-mail já cadastrado" })
+            }
+            
             await knex('cliente').insert({
                 nomeCliente,
                 emailCliente,
