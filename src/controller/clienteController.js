@@ -19,7 +19,7 @@ module.exports = {
             
             const clienteExistente = await knex('cliente').where('emailCliente', emailCliente).first()
             console.log(clienteExistente)
-            if (clienteExistente) {
+            if (clienteExistente.length > 0) {
                 return res.status(400).json({ error: "E-mail já cadastrado" })
             }
             
